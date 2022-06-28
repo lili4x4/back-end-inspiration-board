@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from app import db
 from app.models.board import Board
-from helper_functions import success_message_info_as_list, get_record_by_id, return_database_info_dict
+from app.helper_functions import success_message_info_as_list, get_record_by_id, return_database_info_dict
 
 board_bp = Blueprint('Boards', __name__, url_prefix='/boards')
 
