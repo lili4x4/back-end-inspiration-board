@@ -25,8 +25,8 @@ def get_boards():
 
 # reading one board
 @board_bp.route("/<board_id>", methods=["GET"])
-def get_one_board(id):
-    board = get_record_by_id(Board, id)
+def get_one_board(board_id):
+    board = get_record_by_id(Board, board_id)
     return return_database_info_dict("board", board.self_to_dict())
 
 # def get_record_by_id(cls, id):
