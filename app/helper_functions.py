@@ -10,8 +10,8 @@ def error_message(message, status_code):
 def success_message_info_as_list(message, status_code=200):
     return make_response(jsonify(message), status_code)
 
-# def return_database_info_list(return_value):
-#     return make_response(jsonify(return_value))
+def return_database_info_list(return_value):
+    return make_response(jsonify(return_value))
 
 def return_database_info_dict(category, return_value):
     return_dict = {}
