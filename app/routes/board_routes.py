@@ -6,6 +6,7 @@ from app.helper_functions import success_message_info_as_list, get_record_by_id,
 
 board_bp = Blueprint('Boards', __name__, url_prefix='/boards')
 
+# create one board
 @board_bp.route("", methods=["POST"])
 def create_new_board():
     request_body = request.get_json()
@@ -15,6 +16,7 @@ def create_new_board():
     db.session.commit()
 
     return success_message_info_as_list(dict(board=new_board.self_to_dict()), 201)
+
 # read all boards
 @board_bp.route("", methods=["GET"])
 def get_boards():
@@ -25,9 +27,16 @@ def get_boards():
 
 # reading one board
 @board_bp.route("/<board_id>", methods=["GET"])
-def get_one_board(id):
-    board = get_record_by_id(Board, id)
+def get_one_board(board_id):
+    board = get_record_by_id(Board, board_id)
     return return_database_info_dict("board", board.self_to_dict())
+
+# read all cards by board id
+@board_bp.route("/<board_id>/cards", methods=["GET"])
+def get_cards_by_board_id(board_id):
+    board = get_record_by_id(Board, board_id)
+
+    return success_message_info_as_list(board.self_to_dict())
 
 # def get_record_by_id(cls, id):
 #     try:
