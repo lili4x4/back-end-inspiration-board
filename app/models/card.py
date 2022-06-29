@@ -18,7 +18,8 @@ class Card(db.Model):
         instance_dict = dict(
             card_id=self.card_id,
             message=self.message,
-            board_id=self.board_id
+            board_id=self.board_id,
+            likes_count=self.likes_count
         )
 
         return instance_dict
