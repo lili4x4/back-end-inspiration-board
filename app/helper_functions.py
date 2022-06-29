@@ -33,10 +33,6 @@ def create_record_safely(cls, data_dict):
     try:
         return cls.create_from_dict(data_dict)
     except ValueError as err:
-        error_message(f"Invalid data", 400)
-    # I'm not sure the below error will ever actually come about with how my create_from_dict functions are structured.
-    # However, I'm leaving it in as a reflection of how I would choose to structure error messages if left to my own devices
-    except KeyError as err:
         error_message(f"Invalid key(s): {err}.  {cls.return_class_name()} not added to {cls.return_class_name()} List.", 400)
 
 def update_record_safely(cls, record, data_dict):
@@ -44,8 +40,6 @@ def update_record_safely(cls, record, data_dict):
         record.update_self(data_dict)
     except ValueError as err:
         error_message(f"Invalid key(s): {err}. {cls.return_class_name()} not updated.", 400)
-    except KeyError as err:
-        error_message(f"Missing key(s): {err}. {cls.return_class_name()} not updated.", 400)
 
 
 
