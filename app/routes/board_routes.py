@@ -54,4 +54,13 @@ def create_card(board_id):
     
     return success_message_info_as_list("Card created successfully", status_code=200)
 
-
+# def get_record_by_id(cls, id):
+#     try:
+#         id = int(id)
+#     except ValueError:
+#         error_message(f"Invalid id: {id}", 400)
+#     record = cls.query.get(id)
+#     if record:
+#         return record
+#     else:
+#         error_message(f"{cls.return_class_name()} id: {id} not found", 404)
