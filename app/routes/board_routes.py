@@ -50,7 +50,7 @@ def create_card(board_id):
     db.session.add(card)
     db.session.commit()
     
-    return success_message_info_as_list("Card created successfully", status_code=200)
+    return success_message_info_as_list("Card created successfully", status_code=201)
 
 # Delete one board
 @board_bp.route("/<board_id>", methods=["DELETE"])
