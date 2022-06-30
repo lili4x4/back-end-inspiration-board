@@ -54,7 +54,7 @@ def create_card(board_id):
 
 # Delete one board
 @board_bp.route("/<board_id>", methods=["DELETE"])
-def delte_one_board(board_id):
+def delete_one_board(board_id):
     board = get_record_by_id(Board, board_id)
 
     db.session.delete(board)
