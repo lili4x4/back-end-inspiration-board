@@ -20,7 +20,7 @@ def update_card(card_id):
 
 #deleting one card
 @card_bp.route("/<card_id>", methods=["DELETE"])
-def get_one_board(card_id):
+def delete_one_card(card_id):
     card = get_record_by_id(Card, card_id)
     db.session.delete(card)
     db.session.commit()

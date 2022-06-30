@@ -57,6 +57,9 @@ def create_card(board_id):
 def delete_one_board(board_id):
     board = get_record_by_id(Board, board_id)
 
+    for card in board.cards:
+        db.session.delete(card)
+
     db.session.delete(board)
     db.session.commit()
 
