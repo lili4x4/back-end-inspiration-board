@@ -24,7 +24,6 @@ def get_boards():
     boards_response = [board.self_to_dict() for board in boards]
     return success_message_info_as_list(boards_response, status_code=200)
 
-
 # reading one board
 @board_bp.route("/<board_id>", methods=["GET"])
 def get_one_board(board_id):
@@ -37,7 +36,6 @@ def get_cards_by_board_id(board_id):
     board = get_record_by_id(Board, board_id)
 
     return success_message_info_as_list(board.self_to_dict())
-
 
 # creating one card
 @board_bp.route("/<board_id>/cards", methods=["POST"])
@@ -54,13 +52,12 @@ def create_card(board_id):
     
     return success_message_info_as_list("Card created successfully", status_code=200)
 
-# def get_record_by_id(cls, id):
-#     try:
-#         id = int(id)
-#     except ValueError:
-#         error_message(f"Invalid id: {id}", 400)
-#     record = cls.query.get(id)
-#     if record:
-#         return record
-#     else:
-#         error_message(f"{cls.return_class_name()} id: {id} not found", 404)
+# Delete one board
+@board_bp.route("/<board_id>", methods=["DELETE"])
+def delte_one_board(board_id):
+    board = get_record_by_id(Board, board_id)
+
+    db.session.delete(board)
+    db.session.commit()
+
+    return success_message_info_as_list(dict(details=f'Board {board.board_id} "{board.title}" successfully deleted'))
