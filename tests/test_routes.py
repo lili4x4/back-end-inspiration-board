@@ -44,15 +44,14 @@ def test_get_one_board_with_cards(client, one_board_no_cards):
     client.post("/boards/1/cards", json=card_1)
     client.post("/boards/1/cards", json=card_2)
 
-    response = client.get("/boards")
+    response = client.get("/boards/1")
     response_body = response.get_json()
 
     #Assert
     assert response.status_code == 200
-    assert "cards" in response_body[0]
-    assert response_body[0]["title"] == "Winter"
-    assert response_body[0]["owner"] == "Lili"
-    assert response_body[0]["cards"] == [
+    assert response_body["board"]["title"] == "Winter"
+    assert response_body["board"]["owner"] == "Lili"
+    assert response_body["board"]["cards"] == [
         {
             "board_id": 1,
             "card_id": 1,
@@ -81,6 +80,8 @@ def test_get_two_boards_no_cards(client, two_boards_no_cards):
     assert response_body[1]["owner"] == "Adriana"
     assert response_body[1]["cards"] == []
 
+def get_cards_for_board_with_no_cards(client, one_board_no_cards):
+    pass
 
 #Card tests
 def test_create_card(client, one_board_no_cards):
