@@ -31,6 +31,42 @@ def test_get_boards_no_boards(client):
     assert response.status_code == 200
     assert response_body == []
 
+def test_get_one_board_with_cards(client, one_board_no_cards):
+    #Arrange
+    card_1 = {
+            "message": "The woods are lovely, dark and deep..."
+        }
+    card_2 = {
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }
+
+    #Act
+    client.post("/boards/1/cards", json=card_1)
+    client.post("/boards/1/cards", json=card_2)
+
+    response = client.get("/boards")
+    response_body = response.get_json()
+
+    #Assert
+    assert response.status_code == 200
+    assert "cards" in response_body[0]
+    assert response_body[0]["title"] == "Winter"
+    assert response_body[0]["owner"] == "Lili"
+    assert response_body[0]["cards"] == [
+        {
+            "board_id": 1,
+            "card_id": 1,
+            "likes_count": 0,
+            "message": "The woods are lovely, dark and deep..."
+        },
+        {
+            "board_id": 1,
+            "card_id": 2,
+            "likes_count": 0,
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }
+    ]
+
 
 #Card tests
 def test_create_card(client, one_board_no_cards):

@@ -34,9 +34,47 @@ def one_board_no_cards(app):
 
 # This fixture creates one board with two cards and saves it in the database
 @pytest.fixture
-def one_board_two_cards(app, one_board_no_cards):
-    request_body_1 = {"message":"The woods are lovely, dark and deep..."}
-    request_body_2 = {"message":"Las ramas de los árboles están envueltas en fundas de hielo."}
+def one_board_two_cards(app):
+    card_1 = {
+            "board_id": 1,
+            "card_id": 1,
+            "likes_count": 0,
+            "message": "The woods are lovely, dark and deep..."
+        }
+    card_2 = {
+            "board_id": 1,
+            "card_id": 2,
+            "likes_count": 0,
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }
+    new_board = Board(
+        title="Winter", 
+        owner= "Lili",
+        board_id=1,
+        cards=[{
+            "board_id": 1,
+            "card_id": 1,
+            "likes_count": 0,
+            "message": "The woods are lovely, dark and deep..."
+        },{
+            "board_id": 1,
+            "card_id": 2,
+            "likes_count": 0,
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }]
+    )
+    db.session.add(new_board)
+    db.session.commit()
+
 
     client.post("/boards/1/cards", request_body_1)
     client.post("/boards/1/cards", request_body_2)
+
+# This fixture creates two boards with no cards and saves them in the database
+@pytest.fixture
+def two_boards_no_cards(app, one_board_no_cards):
+    new_board = Board(
+        title="Spring", owner="Adriana"
+    )
+    db.session.add(new_board)
+    db.session.commit()
