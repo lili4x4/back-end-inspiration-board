@@ -80,7 +80,7 @@ def test_get_two_boards_no_cards(client, two_boards_no_cards):
     assert response_body[1]["owner"] == "Adriana"
     assert response_body[1]["cards"] == []
 
-def test_get_cards_for_board_with_no_cards(client, one_board_no_cards):
+def test_get_cards_for_board_with_no_cards_returns_empty_list(client, one_board_no_cards):
     response = client.get("/boards/1")
     response_body = response.get_json()
 
