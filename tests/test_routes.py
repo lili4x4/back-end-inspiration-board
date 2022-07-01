@@ -123,6 +123,24 @@ def test_get_cards_for_board_with_2_cards(client, one_board_no_cards):
         }
     ]
 
+def test_get_cards_from_nonexistant_board_returns_error_board_id_not_found(client):
+    #Act
+    response = client.get("/boards/1/cards")
+    response_body = response.get_json()
+
+    #Assert
+    assert "details" in response_body
+    assert response_body["details"] == "Board id: 1 not found"
+
+def test_get_cards_with_invalid_id_returns_error(client):
+    #Act
+    response = client.get("/boards/a/cards")
+    response_body = response.get_json()
+
+    #Assert
+    assert "details" in response_body
+    assert response_body["details"] == "Invalid id: a"
+
 #Card tests
 def test_create_card(client, one_board_no_cards):
     #Act
@@ -150,3 +168,25 @@ def test_create_card_invalid_data(client, one_board_no_cards):
     #Assert
     assert response.status_code == 400
     assert response_body == {"details": "Message not found"}
+
+def test_increase_card_likes(client, one_board_no_cards):
+    #Arrange
+    card_1 = {
+            "message": "The woods are lovely, dark and deep..."
+        }
+    client.post("/boards/1/cards", json=card_1)
+    #Act
+    patch_request_body = {"likes_count":3}
+    response = client.patch("/cards/1", json=patch_request_body)
+
+    response_body = response.get_json()
+
+    assert "card" in response_body
+    assert response_body == {
+        "card" : {
+            "board_id": 1,
+            "card_id": 1,
+            "likes_count": 3,
+            "message": "The woods are lovely, dark and deep..."
+        }
+    }

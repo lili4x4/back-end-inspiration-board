@@ -25,5 +25,5 @@ def delete_one_card(card_id):
     db.session.delete(card)
     db.session.commit()
     
-    return success_message_info_as_list(dict(details=f'Card {card.card_id} "{card.message}" successfully deleted'))
+    return success_message_info_as_list(dict(details=f'Card {card.card_id} \"{card.message}\" successfully deleted'))
 
