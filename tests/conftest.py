@@ -31,3 +31,12 @@ def one_board_no_cards(app):
     )
     db.session.add(new_board)
     db.session.commit()
+
+# This fixture creates one board with two cards and saves it in the database
+@pytest.fixture
+def one_board_two_cards(app, one_board_no_cards):
+    request_body_1 = {"message":"The woods are lovely, dark and deep..."}
+    request_body_2 = {"message":"Las ramas de los árboles están envueltas en fundas de hielo."}
+
+    client.post("/boards/1/cards", request_body_1)
+    client.post("/boards/1/cards", request_body_2)

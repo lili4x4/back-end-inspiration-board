@@ -13,6 +13,24 @@ def test_get_one_saved_board_no_cards(client, one_board_no_cards):
     assert response.status_code == 200
     assert "board" in response_body
 
+def test_post_one_card_to_board(client, one_board_no_cards):
+    #Arrange
+    request_body = {"message":"The woods are lovely, dark and deep..."}
+
+    #Act
+    response = client.post("/boards/1/cards", json=request_body)
+
+    response_body = response.get_json()
+
+    # response = client.get("/boards/1")
+    # response_body = response.get_json()
+
+    #Assert
+    assert response.status_code == 201
+    assert response_body == "Card created successfully"
+
+
+
 
 def test_get_board_not_found(client):
     #Act

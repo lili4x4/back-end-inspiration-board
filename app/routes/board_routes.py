@@ -41,6 +41,7 @@ def get_cards_by_board_id(board_id):
 @board_bp.route("/<board_id>/cards", methods=["POST"])
 def create_card(board_id):
     request_body = request.get_json()
+    print(request_body)
     if "message" not in request_body:
         error_message("Message not found", 400)
 
