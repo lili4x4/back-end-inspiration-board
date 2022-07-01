@@ -44,3 +44,29 @@ def two_boards_no_cards(app):
     db.session.add(new_board_1)
     db.session.add(new_board_2)
     db.session.commit()
+
+@pytest.fixture
+def one_board_two_cards(app):
+    new_board_1 = Board(
+        title="Winter", owner="Lili"
+    )
+    new_board_2 = Board(
+        title="Spring", owner="Adriana"
+    )
+    db.session.add(new_board_1)
+    db.session.add(new_board_2)
+    db.session.commit()
+    
+    new_card_1 = Card(
+        message="The woods are lovely, dark and deep...",
+        likes_count= 0,
+        board_id= 1
+    )
+    new_card_2 = Card(
+        message= "Las ramas de los árboles están envueltas en fundas de hielo.",
+        likes_count= 0,
+        board_id= 1 
+    )
+    db.session.add(new_card_1)
+    db.session.add(new_card_2)
+    db.session.commit()

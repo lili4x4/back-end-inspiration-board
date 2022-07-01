@@ -191,17 +191,13 @@ def test_increase_card_likes(client, one_board_no_cards):
         }
     }
 
-def test_delete_card(client, one_board_no_cards):
-    #Arrange
-    card_1 = {
-            "message": "The woods are lovely, dark and deep..."
-        }
-    card_2 = {
-            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
-        }
-
-    client.post("/boards/1/cards", json=card_1)
-    client.post("/boards/1/cards", json=card_2)
-    
+def test_delete_card(client, one_board_two_cards):
     #Act
-    
+    response = client.delete("/cards/1")
+    response_body = response.get_json()
+
+    #Assert
+    assert response.status_code == 200
+    assert response_body == {'details': 'Card 1 "The woods are lovely, dark and deep..." successfully deleted'}
+
+    assert Card.query.get(1) == None
