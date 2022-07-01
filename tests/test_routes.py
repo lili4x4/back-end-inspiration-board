@@ -77,6 +77,9 @@ def test_get_two_boards_no_cards(client, two_boards_no_cards):
     assert response_body[0]["title"] == "Winter"
     assert response_body[0]["owner"] == "Lili"
     assert response_body[0]["cards"] == []
+    assert response_body[1]["title"] == "Spring"
+    assert response_body[1]["owner"] == "Adriana"
+    assert response_body[1]["cards"] == []
 
 
 #Card tests
