@@ -35,11 +35,12 @@ def one_board_no_cards(app):
 # This fixture creates two boards with no cards and saves them in the database
 @pytest.fixture
 def two_boards_no_cards(app):
-    new_board = Board(
+    new_board_1 = Board(
         title="Winter", owner= "Lili"
     )
     new_board_2 = Board(
         title="Spring", owner="Adriana"
     )
-    db.session.add(new_board)
+    db.session.add(new_board_1)
+    db.session.add(new_board_2)
     db.session.commit()

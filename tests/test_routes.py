@@ -67,6 +67,17 @@ def test_get_one_board_with_cards(client, one_board_no_cards):
         }
     ]
 
+def test_get_two_boards_no_cards(client, two_boards_no_cards):
+    response = client.get("/boards")
+    response_body = response.get_json()
+
+    #Assert
+    assert response.status_code == 200
+    assert len(response_body) == 2
+    assert response_body[0]["title"] == "Winter"
+    assert response_body[0]["owner"] == "Lili"
+    assert response_body[0]["cards"] == []
+
 
 #Card tests
 def test_create_card(client, one_board_no_cards):
