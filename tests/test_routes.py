@@ -88,6 +88,41 @@ def test_get_cards_for_board_with_no_cards_returns_empty_list(client, one_board_
     assert response.status_code == 200
     assert response_body["board"]["cards"] == []
 
+def test_get_cards_for_board_with_2_cards(client, one_board_no_cards):
+    #Arrange
+    card_1 = {
+            "message": "The woods are lovely, dark and deep..."
+        }
+    card_2 = {
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }
+
+    #Act
+    client.post("/boards/1/cards", json=card_1)
+    client.post("/boards/1/cards", json=card_2)
+
+    response = client.get("/boards/1/cards")
+    response_body = response.get_json()
+
+    #Assert
+    assert response.status_code == 200
+    assert "cards" in response_body
+    assert len(response_body["cards"]) == 2
+    assert response_body["cards"] == [
+        {
+            "board_id": 1,
+            "card_id": 1,
+            "likes_count": 0,
+            "message": "The woods are lovely, dark and deep..."
+        },
+        {
+            "board_id": 1,
+            "card_id": 2,
+            "likes_count": 0,
+            "message": "Las ramas de los árboles están envueltas en fundas de hielo."
+        }
+    ]
+
 #Card tests
 def test_create_card(client, one_board_no_cards):
     #Act
