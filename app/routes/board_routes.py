@@ -41,17 +41,17 @@ def get_cards_by_board_id(board_id):
 @board_bp.route("/<board_id>/cards", methods=["POST"])
 def create_card(board_id):
     request_body = request.get_json()
-    print(request_body)
     if "message" not in request_body:
         error_message("Message not found", 400)
 
     request_body["board_id"] = board_id
     card = Card.create_from_dict(request_body)
+    board = get_record_by_id(Board, board_id)
     
     db.session.add(card)
     db.session.commit()
     
-    return success_message_info_as_list("Card created successfully", status_code=201)
+    return success_message_info_as_list(dict(board=board.self_to_dict()), 201)
 
 # Delete one board
 @board_bp.route("/<board_id>", methods=["DELETE"])
