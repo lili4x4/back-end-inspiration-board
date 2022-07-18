@@ -22,6 +22,8 @@ class Board(db.Model):
         )
         
         card_list = [card.self_to_dict() for card in self.cards] if self.cards else []
+        # sort card list by card_ids to prevent cards shifting when like numbers change
+        card_list.sort(key= lambda x: x["card_id"])
         instance_dict["cards"] = card_list
         
         return instance_dict
