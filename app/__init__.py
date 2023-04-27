@@ -30,4 +30,3 @@ from .routes.card_routes import card_bp
 app.register_blueprint(card_bp)
 
 CORS(app)
-return app
