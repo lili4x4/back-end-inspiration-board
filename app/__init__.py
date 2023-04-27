@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_TEST_DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://inspiration_board_sql_user:vZJG9I6gLoVEiWXotuc9FJAmlHizfU5o@dpg-ch4rjt2ut4m6jh95tdf0-a.ohio-postgres.render.com/inspiration_board_sql"
 
 db.init_app(app)
 migrate.init_app(app, db)
